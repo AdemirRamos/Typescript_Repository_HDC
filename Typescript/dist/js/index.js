@@ -66,7 +66,7 @@ function sum(a, b) {
 console.log(sum(12, 12));
 //Também é possível tipar o retorno da função:
 function sayHello(name) {
-    return `Hello ${name}`;
+    return `Hello, ${name}!`;
 }
 console.log(sayHello('Ademir'));
 //Também é possível tipar funções que não retornam nada:
@@ -86,7 +86,7 @@ console.log(logger('Olá!'));
 //Para parâmetros opicionais (em funções) se usa "?":
 function greeting(name, greet) {
     if (greet) {
-        console.log(`Olá, ${greet}, ${name}!`);
+        console.log(`Olá, ${greet} ${name}!`);
     }
     else {
         console.log(`Olá, ${name}!`);

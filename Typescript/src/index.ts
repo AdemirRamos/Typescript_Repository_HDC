@@ -96,7 +96,7 @@ console.log(sum(12, 12))
 //Também é possível tipar o retorno da função:
 
 function sayHello(name: string): string {
-    return `Hello ${name}`
+    return `Hello, ${name}!`
 }
 
 console.log(sayHello('Ademir'))
@@ -123,7 +123,7 @@ console.log(logger('Olá!'))
 
 function greeting(name: string, greet?: string): void {
     if (greet) {
-        console.log(`Olá, ${greet}, ${name}!`)
+        console.log(`Olá, ${greet} ${name}!`)
     }
 
     else {
