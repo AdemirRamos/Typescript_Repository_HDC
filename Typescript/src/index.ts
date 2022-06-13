@@ -155,10 +155,145 @@ console.log(multiplyNumbers({n1: 6, n2: 6}))
 
 //Também se pode usar as interfaces com variáveis:
 
-/*
-
-const somar_números: MathFunctionParams {
-
+const somar_números: MathFunctionParams = {
+    n1: 7,
+    n2: 7
 }
 
-*/
+console.log(multiplyNumbers(somar_números))
+
+//"Narrowing:" consiste em checagem de tipos. - Para um exemplo extra, verifique o exemplo acima com o parâmetro "greet".
+
+function doSomething(info: number | boolean) {
+    if (typeof info === 'number') {
+        console.log(`O número é ${info}.`)
+        return
+    }
+
+    else {
+        console.log('Não foi passado nenhum número.')
+    }
+}
+
+doSomething(5)
+doSomething(true)
+
+//"Generics": nos permitem executar um função independentemente do tipo de dado. - Também é possível restringir o tipo de dado.
+
+function showArrayItems<T>(vetor: T[]) { //Normalmente, as letras utilizadas são "T" ou "U" - ambas podem também serem minúsculas.
+    vetor.forEach(element => {
+        console.log(`Item: ${element}`)
+    })
+}
+
+const a1 = [1, 2, 3]
+const a2 = ['a', 'b', 'c']
+
+showArrayItems(a1)
+showArrayItems(a2)
+
+//Classes:
+
+class User {
+    name
+    role
+    isApproved
+    age
+
+
+    constructor(name: string, role: string, isApproved: boolean, age: number) {
+        this.name = name
+        this.role = role
+        this.isApproved = isApproved
+        this.age = age
+    }
+
+    showUserName() {
+        console.log(`O nome do usuário é: ${this.name}.`)
+    }
+
+    showUserAge(canShow: boolean): void {
+        if (canShow) {
+            console.log(`A idade do usuário é: ${this.age}.`)
+            return
+        }
+
+        else {
+            console.log('O usuário não informou a idade.')
+        }
+    }
+}
+
+const zeca = new User('Zeca', 'Admin', true, 25)
+
+console.log(zeca)
+zeca.showUserName()
+console.log(zeca.showUserAge(true))
+
+//Interfaces em classes:
+
+interface IVehicle { //Normalmente, as interfaces de classe começam com uma letra "i" maiúscula.
+    brand: string
+    showBrand(): void
+}
+
+class Car implements IVehicle {
+    brand
+    wheels
+
+    constructor(brand: string, wheels: number) {
+        this.brand = brand
+        this.wheels = wheels
+    }
+
+    showBrand(): void {
+        console.log(`A marca do carro é ${this.brand}.`)
+    }
+}
+
+const fusca = new Car('volkswagen', 4)
+fusca.showBrand()
+
+//Herança:
+
+class SuperCar extends Car {
+    engine
+
+    constructor(brand: string, wheels: number, engine: number) {
+        super(brand, wheels)
+        this.engine = engine
+    }
+}
+
+const carro = new SuperCar('BMW', 4, 2.0)
+console.log(carro)
+carro.showBrand()
+
+//Decorator: esse recurso é muito utilizado no TS para a validação de dados;
+//Ou construção de um evento observável em algum ponto determinado de uma classe/função.
+//Para usar esse recurso, é preciso ir até o arquivo de configuração TS e ativar o parâmetro "experimentalDecorators".
+//"Decorators" nos ajudam a criar um "id" e outras informações independentemente do usuário.
+
+function baseParameters() {
+    return function<T extends {new (...argumentos: any[]): {}}>(constructor: T) {
+        return class extends constructor {
+            id = Math.random()
+            createdAt = new Date()
+        }
+    }
+}
+
+//Para se implementar um "decorator", usamos "@":
+
+@baseParameters()
+
+class Person {
+    name
+
+    constructor(name: string) {
+        this.name = name
+    }
+}
+
+const pessoa = new Person('Ademir')
+console.log(pessoa)

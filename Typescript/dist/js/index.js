@@ -1,5 +1,11 @@
 "use strict";
 //Em um arquivo TS, se pode escrever código JS ou TS.
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 //const x = 10
 //Atribuindo tipos a uma variável:
 const x = 10;
@@ -97,10 +103,102 @@ function multiplyNumbers(numbers) {
 }
 console.log(multiplyNumbers({ n1: 6, n2: 6 }));
 //Também se pode usar as interfaces com variáveis:
-/*
-
-const somar_números: MathFunctionParams {
-
+const somar_números = {
+    n1: 7,
+    n2: 7
+};
+console.log(multiplyNumbers(somar_números));
+//"Narrowing:" consiste em checagem de tipos. - Para um exemplo extra, verifique o exemplo acima com o parâmetro "greet".
+function doSomething(info) {
+    if (typeof info === 'number') {
+        console.log(`O número é ${info}.`);
+        return;
+    }
+    else {
+        console.log('Não foi passado nenhum número.');
+    }
 }
-
-*/
+doSomething(5);
+doSomething(true);
+//"Generics": nos permitem executar um função independentemente do tipo de dado. - Também é possível restringir o tipo de dado.
+function showArrayItems(vetor) {
+    vetor.forEach(element => {
+        console.log(`Item: ${element}`);
+    });
+}
+const a1 = [1, 2, 3];
+const a2 = ['a', 'b', 'c'];
+showArrayItems(a1);
+showArrayItems(a2);
+//Classes:
+class User {
+    constructor(name, role, isApproved, age) {
+        this.name = name;
+        this.role = role;
+        this.isApproved = isApproved;
+        this.age = age;
+    }
+    showUserName() {
+        console.log(`O nome do usuário é: ${this.name}.`);
+    }
+    showUserAge(canShow) {
+        if (canShow) {
+            console.log(`A idade do usuário é: ${this.age}.`);
+            return;
+        }
+        else {
+            console.log('O usuário não informou a idade.');
+        }
+    }
+}
+const zeca = new User('Zeca', 'Admin', true, 25);
+console.log(zeca);
+zeca.showUserName();
+console.log(zeca.showUserAge(true));
+class Car {
+    constructor(brand, wheels) {
+        this.brand = brand;
+        this.wheels = wheels;
+    }
+    showBrand() {
+        console.log(`A marca do carro é ${this.brand}.`);
+    }
+}
+const fusca = new Car('volkswagen', 4);
+fusca.showBrand();
+//Herança:
+class SuperCar extends Car {
+    constructor(brand, wheels, engine) {
+        super(brand, wheels);
+        this.engine = engine;
+    }
+}
+const carro = new SuperCar('BMW', 4, 2.0);
+console.log(carro);
+carro.showBrand();
+//Decorator: esse recurso é muito utilizado no TS para a validação de dados;
+//Ou construção de um evento observável em algum ponto determinado de uma classe/função.
+//Para usar esse recurso, é preciso ir até o arquivo de configuração TS e ativar o parâmetro "experimentalDecorators".
+//"Decorators" nos ajudam a criar um "id" e outras informações independentemente do usuário.
+function baseParameters() {
+    return function (constructor) {
+        return class extends constructor {
+            constructor() {
+                super(...arguments);
+                this.id = Math.random();
+                this.createdAt = new Date();
+            }
+        };
+    };
+}
+//Para se implementar um "decorator", usamos "@":
+let Person = class Person {
+    constructor(name) {
+        this.name = name;
+    }
+};
+Person = __decorate([
+    baseParameters()
+], Person);
+const pessoa = new Person('Ademir');
+console.log(pessoa);
