@@ -19,7 +19,7 @@ const x: number = 10
 //Como definir variáveis: inferência X "annotation":
 
 /*Inferência:*/ const y = 10
-/*"Annotation":*/ const z:number = 11
+/*"Annotation":*/ const z: number = 11
 
 //Mesmo com o método de inferência, uma variável de um tipo não pode receber um valor conflitante com o tipo declarado.
 //No exemplo acima, a "const y" não pode receber um valor diferente de um número.
