@@ -1,3 +1,8 @@
+//O comomando (sem aspas) "tsc --init" inicia o arquivo de configuração do TS;
+//Nesse arquivo, podemos configurar o "diretório-raiz" e o "diretório-destino".
+//O comando (sem aspas) "tsc" gera a compilação dos arquivos.
+//O comando (sem aspas) "tsc -w" monitora a compila as modificações dos nossos arquivos.
+
 //Em um arquivo TS, se pode escrever código JS ou TS.
 
 //const x = 10
